@@ -1,0 +1,51 @@
+{
+  "email": "Ted.Greenholt@hotmail.com",
+  "password": "z1Z2yQMeKnidaOS",
+  "role": "receptionist",
+  "firstName": "Jillian",
+  "lastName": "Gibson",
+  "speciality": "Oncology",
+  "licenseNumber": "LIC202560376",
+  "status": "active",
+  "contactInfo": {
+    "phone": "920.810.0963 x743",
+    "address": "499 Legros Court",
+    "emergencyContact": {
+      "name": "Lionel",
+      "phone": "1-988-924-2558",
+      "relationship": "friend"
+    }
+  },
+  "schedule": [
+    {
+      "day": "Monday",
+      "startTime": "08:00",
+      "endTime": "16:00"
+    },
+    {
+      "day": "Wednesday",
+      "startTime": "10:00",
+      "endTime": "14:00"
+    }
+  ],
+  "education": {
+    "institution": "Universidad de Extramadura, Uex",
+    "degree": "Graduado en Física",
+    "year": "2021",
+    "country": "Spain"
+  },
+  "workingHours": {
+    "maxPatientsPerDay": 2,
+    "preferredAppointmentDuration": 2,
+    "breakTime": {
+      "start": "2025-01-17T15:07:56.498Z",
+      "end": "2025-01-17T15:07:56.498Z"
+    }
+  },
+  "notificationPreferences": {
+    "email": true,
+    "sms": false,
+    "pushNotifications": false
+  },
+  "lastLogin": "2025-01-17T15:07:56.498Z"
+}

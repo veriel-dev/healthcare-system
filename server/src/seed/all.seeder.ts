@@ -1,0 +1,2760 @@
+import { Patient, User } from '../models';
+import mongoose from 'mongoose';
+import { config } from '../config/config';
+import { generateIdUnique, DOC } from '../utils/generateIdUnique';
+import { hashPassword } from '../utils/hashPassword';
+
+const users = [
+  {
+    email: 'Alvena_Lesch@gmail.com',
+    password: 'vSrpwY3fGP9a9sH',
+    role: 'admin',
+    firstName: 'Helmer',
+    lastName: 'Sipes',
+    speciality: 'General Surgery',
+    licenseNumber: 'LIC202557025',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '773 E Jackson Street',
+      emergencyContact: {
+        name: 'Sibyl',
+        phone: '685304859',
+        relationship: 'spouse',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 1,
+      preferredAppointmentDuration: 2,
+      breakTime: {
+        start: '2025-01-31T21:43:05.420Z',
+        end: '2025-01-31T21:43:05.420Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.420Z',
+  },
+  {
+    email: 'Richie_Lemke@gmail.com',
+    password: 'VoxHUMovgbjzFVe',
+    role: 'doctor',
+    firstName: 'Leora',
+    lastName: 'Gulgowski',
+    speciality: 'Cardiology',
+    licenseNumber: 'LIC202559464',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '2367 S Jefferson Street',
+      emergencyContact: {
+        name: 'Karlee',
+        phone: '685304859',
+        relationship: 'friend',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 5,
+      preferredAppointmentDuration: 10,
+      breakTime: {
+        start: '2025-01-31T21:43:05.421Z',
+        end: '2025-01-31T21:43:05.421Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.421Z',
+  },
+  {
+    email: 'Antonietta_Wiegand@yahoo.com',
+    password: 'frtc5feQdn1d7jn',
+    role: 'nurse',
+    firstName: 'Virgil',
+    lastName: 'Wehner',
+    speciality: 'General Surgery',
+    licenseNumber: 'LIC202579398',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '737 W Washington Avenue',
+      emergencyContact: {
+        name: 'Elda',
+        phone: '685304859',
+        relationship: 'parent',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 8,
+      preferredAppointmentDuration: 6,
+      breakTime: {
+        start: '2025-01-31T21:43:05.421Z',
+        end: '2025-01-31T21:43:05.421Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.421Z',
+  },
+  {
+    email: 'Brook32@hotmail.com',
+    password: 'xI2EcmJauSWEaH7',
+    role: 'admin',
+    firstName: 'Abigayle',
+    lastName: 'Reynolds-Gerlach',
+    speciality: 'Endocrinology',
+    licenseNumber: 'LIC202588475',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '839 E 1st Street',
+      emergencyContact: {
+        name: 'Elise',
+        phone: '685304859',
+        relationship: 'parent',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 3,
+      preferredAppointmentDuration: 3,
+      breakTime: {
+        start: '2025-01-31T21:43:05.421Z',
+        end: '2025-01-31T21:43:05.421Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.421Z',
+  },
+  {
+    email: 'Turner.Johnson3@yahoo.com',
+    password: 'EBku1xPi41WCBLZ',
+    role: 'doctor',
+    firstName: 'Esta',
+    lastName: 'Deckow',
+    speciality: 'Pathology',
+    licenseNumber: 'LIC202574269',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '6330 Santiago Plaza',
+      emergencyContact: {
+        name: 'Darien',
+        phone: '685304859',
+        relationship: 'sibling',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 8,
+      preferredAppointmentDuration: 0,
+      breakTime: {
+        start: '2025-01-31T21:43:05.421Z',
+        end: '2025-01-31T21:43:05.421Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.421Z',
+  },
+  {
+    email: 'Leatha.Douglas39@yahoo.com',
+    password: 's1gUqbitpaPcDua',
+    role: 'nurse',
+    firstName: 'Kade',
+    lastName: 'Heidenreich',
+    speciality: 'Emergency Medicine',
+    licenseNumber: 'LIC202599554',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '396 Schumm Burgs',
+      emergencyContact: {
+        name: 'Electa',
+        phone: '685304859',
+        relationship: 'sibling',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 4,
+      preferredAppointmentDuration: 5,
+      breakTime: {
+        start: '2025-01-31T21:43:05.421Z',
+        end: '2025-01-31T21:43:05.421Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.421Z',
+  },
+  {
+    email: 'Ephraim92@gmail.com',
+    password: 'QRyai0gKKBpzohh',
+    role: 'receptionist',
+    firstName: 'Madelynn',
+    lastName: 'Hand',
+    speciality: 'Family Medicine',
+    licenseNumber: 'LIC202534093',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '92428 Runolfsson Gateway',
+      emergencyContact: {
+        name: 'Crawford',
+        phone: '685304859',
+        relationship: 'friend',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 7,
+      preferredAppointmentDuration: 1,
+      breakTime: {
+        start: '2025-01-31T21:43:05.421Z',
+        end: '2025-01-31T21:43:05.421Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.421Z',
+  },
+  {
+    email: 'Adelia.Roob65@yahoo.com',
+    password: 'TCJxuUrEuVMmoPu',
+    role: 'receptionist',
+    firstName: 'Catharine',
+    lastName: 'Stoltenberg',
+    speciality: 'Ophthalmology',
+    licenseNumber: 'LIC202547390',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '3751 Nikolaus Courts',
+      emergencyContact: {
+        name: 'Daren',
+        phone: '685304859',
+        relationship: 'spouse',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 4,
+      preferredAppointmentDuration: 0,
+      breakTime: {
+        start: '2025-01-31T21:43:05.421Z',
+        end: '2025-01-31T21:43:05.421Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.421Z',
+  },
+  {
+    email: 'Alfonso52@hotmail.com',
+    password: 'iYHMz6KFOxs3Zz5',
+    role: 'receptionist',
+    firstName: 'Giovanna',
+    lastName: 'Dibbert',
+    speciality: 'Oncology',
+    licenseNumber: 'LIC202537028',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '4682 Skiles Ville',
+      emergencyContact: {
+        name: 'Stephania',
+        phone: '685304859',
+        relationship: 'sibling',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 2,
+      preferredAppointmentDuration: 2,
+      breakTime: {
+        start: '2025-01-31T21:43:05.422Z',
+        end: '2025-01-31T21:43:05.422Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.422Z',
+  },
+  {
+    email: 'Isobel_Osinski80@hotmail.com',
+    password: 'll_uXedurVT2mX9',
+    role: 'admin',
+    firstName: 'Monty',
+    lastName: 'Glover',
+    speciality: 'Infectious Disease',
+    licenseNumber: 'LIC202592123',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '8202 Bernhard Meadow',
+      emergencyContact: {
+        name: 'Micheal',
+        phone: '685304859',
+        relationship: 'parent',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 9,
+      preferredAppointmentDuration: 10,
+      breakTime: {
+        start: '2025-01-31T21:43:05.422Z',
+        end: '2025-01-31T21:43:05.422Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.422Z',
+  },
+  {
+    email: 'Lucio13@yahoo.com',
+    password: 'BPB2uxNG64guLnv',
+    role: 'doctor',
+    firstName: 'Darrel',
+    lastName: 'Kris',
+    speciality: 'Ophthalmology',
+    licenseNumber: 'LIC202526474',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '191 State Line Road',
+      emergencyContact: {
+        name: 'Lois',
+        phone: '685304859',
+        relationship: 'friend',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 3,
+      preferredAppointmentDuration: 1,
+      breakTime: {
+        start: '2025-01-31T21:43:05.422Z',
+        end: '2025-01-31T21:43:05.422Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.422Z',
+  },
+  {
+    email: 'Shaina.Kerluke93@gmail.com',
+    password: 'VIeDsdkD6IPt_GF',
+    role: 'nurse',
+    firstName: 'Vernie',
+    lastName: 'Kozey-Reynolds',
+    speciality: 'Cardiology',
+    licenseNumber: 'LIC202561546',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '1857 Windsor Avenue',
+      emergencyContact: {
+        name: 'Callie',
+        phone: '685304859',
+        relationship: 'sibling',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 9,
+      preferredAppointmentDuration: 5,
+      breakTime: {
+        start: '2025-01-31T21:43:05.422Z',
+        end: '2025-01-31T21:43:05.422Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.422Z',
+  },
+  {
+    email: 'Melyssa.Simonis-Murazik77@yahoo.com',
+    password: 'fVLwllxGlZRBo8K',
+    role: 'receptionist',
+    firstName: 'Alverta',
+    lastName: 'Nikolaus',
+    speciality: 'Endocrinology',
+    licenseNumber: 'LIC202539446',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '347 Hall Lane',
+      emergencyContact: {
+        name: 'Misael',
+        phone: '685304859',
+        relationship: 'parent',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 3,
+      preferredAppointmentDuration: 9,
+      breakTime: {
+        start: '2025-01-31T21:43:05.423Z',
+        end: '2025-01-31T21:43:05.423Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.423Z',
+  },
+  {
+    email: 'Dorris16@hotmail.com',
+    password: 'IkL6FeP_LlEwdOb',
+    role: 'doctor',
+    firstName: 'Jacques',
+    lastName: 'Feil',
+    speciality: 'Geriatrics',
+    licenseNumber: 'LIC202549054',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '781 Liana Circles',
+      emergencyContact: {
+        name: 'Virgie',
+        phone: '685304859',
+        relationship: 'friend',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 3,
+      preferredAppointmentDuration: 10,
+      breakTime: {
+        start: '2025-01-31T21:43:05.423Z',
+        end: '2025-01-31T21:43:05.423Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.423Z',
+  },
+  {
+    email: 'Colten_Kub86@yahoo.com',
+    password: 'ZiSz4VylCIqowD3',
+    role: 'nurse',
+    firstName: 'Frederik',
+    lastName: 'Turcotte',
+    speciality: 'Emergency Medicine',
+    licenseNumber: 'LIC202597100',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '1633 Pattie Falls',
+      emergencyContact: {
+        name: 'Christy',
+        phone: '685304859',
+        relationship: 'spouse',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 5,
+      preferredAppointmentDuration: 0,
+      breakTime: {
+        start: '2025-01-31T21:43:05.423Z',
+        end: '2025-01-31T21:43:05.423Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.423Z',
+  },
+  {
+    email: 'Braden_Glover@hotmail.com',
+    password: 'mmHGYSWHtM3k7Ns',
+    role: 'receptionist',
+    firstName: 'Fausto',
+    lastName: 'Padberg',
+    speciality: 'Family Medicine',
+    licenseNumber: 'LIC202541987',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '984 Mohr Ranch',
+      emergencyContact: {
+        name: 'Germaine',
+        phone: '685304859',
+        relationship: 'spouse',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 4,
+      preferredAppointmentDuration: 2,
+      breakTime: {
+        start: '2025-01-31T21:43:05.423Z',
+        end: '2025-01-31T21:43:05.423Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.423Z',
+  },
+  {
+    email: 'Chadd.Paucek@yahoo.com',
+    password: 'yIlTmegIRwo_EUM',
+    role: 'receptionist',
+    firstName: 'Mazie',
+    lastName: 'Mueller',
+    speciality: 'Gastroenterology',
+    licenseNumber: 'LIC202538357',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '14809 Mill Road',
+      emergencyContact: {
+        name: 'Rosemary',
+        phone: '685304859',
+        relationship: 'spouse',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 1,
+      preferredAppointmentDuration: 2,
+      breakTime: {
+        start: '2025-01-31T21:43:05.423Z',
+        end: '2025-01-31T21:43:05.423Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.423Z',
+  },
+  {
+    email: 'Lera.Hilpert@gmail.com',
+    password: 'iDfKBTuWlRLTp56',
+    role: 'admin',
+    firstName: 'Rudy',
+    lastName: 'Champlin',
+    speciality: 'Neurology',
+    licenseNumber: 'LIC202550563',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '7389 Ridge Road',
+      emergencyContact: {
+        name: 'Aglae',
+        phone: '685304859',
+        relationship: 'friend',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 4,
+      preferredAppointmentDuration: 5,
+      breakTime: {
+        start: '2025-01-31T21:43:05.423Z',
+        end: '2025-01-31T21:43:05.423Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.423Z',
+  },
+  {
+    email: 'Jay98@yahoo.com',
+    password: 'ZqTxWDWjsJeFM00',
+    role: 'admin',
+    firstName: 'Fay',
+    lastName: 'Bednar',
+    speciality: 'Gastroenterology',
+    licenseNumber: 'LIC202595669',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '724 Dillan Center',
+      emergencyContact: {
+        name: 'Margarette',
+        phone: '685304859',
+        relationship: 'friend',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 7,
+      preferredAppointmentDuration: 8,
+      breakTime: {
+        start: '2025-01-31T21:43:05.424Z',
+        end: '2025-01-31T21:43:05.424Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.424Z',
+  },
+  {
+    email: 'Mason.Hackett@yahoo.com',
+    password: 'kdPZrMolzco0hCn',
+    role: 'nurse',
+    firstName: 'Nelda',
+    lastName: 'Stoltenberg',
+    speciality: 'Dermatology',
+    licenseNumber: 'LIC202522235',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '22865 Hermann Mills',
+      emergencyContact: {
+        name: 'Kayla',
+        phone: '685304859',
+        relationship: 'sibling',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 7,
+      preferredAppointmentDuration: 1,
+      breakTime: {
+        start: '2025-01-31T21:43:05.424Z',
+        end: '2025-01-31T21:43:05.424Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.424Z',
+  },
+  {
+    email: 'Teagan_OKon@yahoo.com',
+    password: 'mAO3EgLXqZ_MGzt',
+    role: 'admin',
+    firstName: 'Mathias',
+    lastName: 'Pfannerstill',
+    speciality: 'Emergency Medicine',
+    licenseNumber: 'LIC202576766',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '93112 Station Street',
+      emergencyContact: {
+        name: 'Augustus',
+        phone: '685304859',
+        relationship: 'sibling',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 0,
+      preferredAppointmentDuration: 5,
+      breakTime: {
+        start: '2025-01-31T21:43:05.424Z',
+        end: '2025-01-31T21:43:05.424Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.424Z',
+  },
+  {
+    email: 'Dusty_VonRueden56@gmail.com',
+    password: 'UnQDVuCSwr0V5F3',
+    role: 'nurse',
+    firstName: 'Aracely',
+    lastName: 'Ebert',
+    speciality: 'Infectious Disease',
+    licenseNumber: 'LIC202512074',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '708 Weber Curve',
+      emergencyContact: {
+        name: 'Damaris',
+        phone: '685304859',
+        relationship: 'sibling',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 10,
+      preferredAppointmentDuration: 9,
+      breakTime: {
+        start: '2025-01-31T21:43:05.424Z',
+        end: '2025-01-31T21:43:05.424Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.424Z',
+  },
+  {
+    email: 'Keenan.Corkery@yahoo.com',
+    password: 'kyyYyRDkt7FFBnu',
+    role: 'nurse',
+    firstName: 'Max',
+    lastName: 'Kuhlman',
+    speciality: 'General Surgery',
+    licenseNumber: 'LIC202524790',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '667 Mollie Track',
+      emergencyContact: {
+        name: 'Aurelie',
+        phone: '685304859',
+        relationship: 'friend',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 5,
+      preferredAppointmentDuration: 1,
+      breakTime: {
+        start: '2025-01-31T21:43:05.424Z',
+        end: '2025-01-31T21:43:05.424Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.424Z',
+  },
+  {
+    email: 'Triston_Bins80@yahoo.com',
+    password: 'r6Gru1h9ELasb_g',
+    role: 'admin',
+    firstName: 'Martine',
+    lastName: 'Cartwright',
+    speciality: 'Nephrology',
+    licenseNumber: 'LIC202525760',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '326 Eino Valleys',
+      emergencyContact: {
+        name: 'Dejon',
+        phone: '685304859',
+        relationship: 'friend',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 2,
+      preferredAppointmentDuration: 8,
+      breakTime: {
+        start: '2025-01-31T21:43:05.424Z',
+        end: '2025-01-31T21:43:05.424Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.424Z',
+  },
+  {
+    email: 'Catalina99@gmail.com',
+    password: 'tc261cea_ul8AdT',
+    role: 'receptionist',
+    firstName: 'Cheyanne',
+    lastName: 'Berge',
+    speciality: 'Pulmonology',
+    licenseNumber: 'LIC202543729',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '52187 W Lake Street',
+      emergencyContact: {
+        name: 'Brent',
+        phone: '685304859',
+        relationship: 'parent',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 3,
+      preferredAppointmentDuration: 6,
+      breakTime: {
+        start: '2025-01-31T21:43:05.424Z',
+        end: '2025-01-31T21:43:05.424Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.424Z',
+  },
+  {
+    email: 'Cordell.Beatty@gmail.com',
+    password: 'ylQysinxwZpHIB9',
+    role: 'receptionist',
+    firstName: 'Moriah',
+    lastName: 'Kuphal',
+    speciality: 'Family Medicine',
+    licenseNumber: 'LIC202576845',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '2788 Columbus Estates',
+      emergencyContact: {
+        name: 'Wendy',
+        phone: '685304859',
+        relationship: 'friend',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 8,
+      preferredAppointmentDuration: 0,
+      breakTime: {
+        start: '2025-01-31T21:43:05.424Z',
+        end: '2025-01-31T21:43:05.424Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.424Z',
+  },
+  {
+    email: 'Roxane.Mills41@hotmail.com',
+    password: 'Smhs2NbeibFmAjP',
+    role: 'admin',
+    firstName: 'Bud',
+    lastName: 'Lubowitz',
+    speciality: 'Pediatrics',
+    licenseNumber: 'LIC202587659',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '24060 West Avenue',
+      emergencyContact: {
+        name: 'Maribel',
+        phone: '685304859',
+        relationship: 'friend',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 1,
+      preferredAppointmentDuration: 8,
+      breakTime: {
+        start: '2025-01-31T21:43:05.424Z',
+        end: '2025-01-31T21:43:05.424Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.424Z',
+  },
+  {
+    email: 'Reese99@hotmail.com',
+    password: 'MSv8d1vmBOaTkud',
+    role: 'nurse',
+    firstName: 'Asia',
+    lastName: 'Feeney',
+    speciality: 'Obstetrics and Gynecology',
+    licenseNumber: 'LIC202596463',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '59013 Maxwell Way',
+      emergencyContact: {
+        name: 'Ines',
+        phone: '685304859',
+        relationship: 'spouse',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 9,
+      preferredAppointmentDuration: 5,
+      breakTime: {
+        start: '2025-01-31T21:43:05.424Z',
+        end: '2025-01-31T21:43:05.424Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.424Z',
+  },
+  {
+    email: 'Zoila_Cassin@yahoo.com',
+    password: 'jYn0T1nnK0uXJDM',
+    role: 'doctor',
+    firstName: 'Annie',
+    lastName: 'Jacobson',
+    speciality: 'Ophthalmology',
+    licenseNumber: 'LIC202593633',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '3418 Marguerite Extension',
+      emergencyContact: {
+        name: 'Kiera',
+        phone: '685304859',
+        relationship: 'sibling',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 3,
+      preferredAppointmentDuration: 4,
+      breakTime: {
+        start: '2025-01-31T21:43:05.424Z',
+        end: '2025-01-31T21:43:05.424Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.424Z',
+  },
+  {
+    email: 'Eliane.Kreiger@gmail.com',
+    password: 'vs1UZVzy4VBdU4M',
+    role: 'admin',
+    firstName: 'Haskell',
+    lastName: 'Hyatt',
+    speciality: 'Radiology',
+    licenseNumber: 'LIC202593471',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '351 Zboncak Cliff',
+      emergencyContact: {
+        name: 'Marty',
+        phone: '685304859',
+        relationship: 'sibling',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 0,
+      preferredAppointmentDuration: 9,
+      breakTime: {
+        start: '2025-01-31T21:43:05.424Z',
+        end: '2025-01-31T21:43:05.424Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.424Z',
+  },
+  {
+    email: 'Gregory42@gmail.com',
+    password: 'OmWiKvQzpjnVjsa',
+    role: 'admin',
+    firstName: 'Jayden',
+    lastName: 'Conroy',
+    speciality: 'Radiology',
+    licenseNumber: 'LIC202584849',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '39247 Beechwood Avenue',
+      emergencyContact: {
+        name: 'Eunice',
+        phone: '685304859',
+        relationship: 'spouse',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 3,
+      preferredAppointmentDuration: 0,
+      breakTime: {
+        start: '2025-01-31T21:43:05.425Z',
+        end: '2025-01-31T21:43:05.425Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.425Z',
+  },
+  {
+    email: 'Gladyce_Lynch@hotmail.com',
+    password: 'PIDG9tAnSWVYXnr',
+    role: 'doctor',
+    firstName: 'Felipa',
+    lastName: 'Gusikowski',
+    speciality: 'Anesthesiology',
+    licenseNumber: 'LIC202540937',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '17919 Richard Estates',
+      emergencyContact: {
+        name: 'Roscoe',
+        phone: '685304859',
+        relationship: 'spouse',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 7,
+      preferredAppointmentDuration: 9,
+      breakTime: {
+        start: '2025-01-31T21:43:05.425Z',
+        end: '2025-01-31T21:43:05.425Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.425Z',
+  },
+  {
+    email: 'Ethyl_Heidenreich-Langworth42@hotmail.com',
+    password: 'V5Ttlg4yE3MYl07',
+    role: 'receptionist',
+    firstName: 'Juana',
+    lastName: 'Raynor',
+    speciality: 'Internal Medicine',
+    licenseNumber: 'LIC202552389',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '196 Konopelski Shoals',
+      emergencyContact: {
+        name: 'Jewell',
+        phone: '685304859',
+        relationship: 'sibling',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 4,
+      preferredAppointmentDuration: 9,
+      breakTime: {
+        start: '2025-01-31T21:43:05.425Z',
+        end: '2025-01-31T21:43:05.425Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.425Z',
+  },
+  {
+    email: 'Robin10@hotmail.com',
+    password: 'BmpUMBZ_c7k6Ovu',
+    role: 'doctor',
+    firstName: 'Emilio',
+    lastName: 'Bauch',
+    speciality: 'Ophthalmology',
+    licenseNumber: 'LIC202521461',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '6996 Corwin Plaza',
+      emergencyContact: {
+        name: 'Jayson',
+        phone: '685304859',
+        relationship: 'spouse',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 7,
+      preferredAppointmentDuration: 7,
+      breakTime: {
+        start: '2025-01-31T21:43:05.425Z',
+        end: '2025-01-31T21:43:05.425Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.425Z',
+  },
+  {
+    email: 'Vernie_Flatley@hotmail.com',
+    password: 'a5SDNCphq3Fwdyx',
+    role: 'nurse',
+    firstName: 'Norbert',
+    lastName: 'Rath',
+    speciality: 'Cardiology',
+    licenseNumber: 'LIC202532560',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '7980 Riverside Avenue',
+      emergencyContact: {
+        name: 'Ervin',
+        phone: '685304859',
+        relationship: 'sibling',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 5,
+      preferredAppointmentDuration: 8,
+      breakTime: {
+        start: '2025-01-31T21:43:05.425Z',
+        end: '2025-01-31T21:43:05.425Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.425Z',
+  },
+  {
+    email: 'Pat90@yahoo.com',
+    password: 'XF1RLSzsNifrt5y',
+    role: 'doctor',
+    firstName: 'Darion',
+    lastName: 'Lind',
+    speciality: 'Vascular Surgery',
+    licenseNumber: 'LIC202550061',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '374 Steuber Mission',
+      emergencyContact: {
+        name: 'Linwood',
+        phone: '685304859',
+        relationship: 'spouse',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 0,
+      preferredAppointmentDuration: 2,
+      breakTime: {
+        start: '2025-01-31T21:43:05.425Z',
+        end: '2025-01-31T21:43:05.425Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.425Z',
+  },
+  {
+    email: 'Athena49@yahoo.com',
+    password: 'kDfJfRacfMSemLr',
+    role: 'nurse',
+    firstName: 'Delpha',
+    lastName: 'Murazik',
+    speciality: 'Psychiatry',
+    licenseNumber: 'LIC202572518',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '7223 Roob Manors',
+      emergencyContact: {
+        name: 'Alysson',
+        phone: '685304859',
+        relationship: 'sibling',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 0,
+      preferredAppointmentDuration: 5,
+      breakTime: {
+        start: '2025-01-31T21:43:05.425Z',
+        end: '2025-01-31T21:43:05.425Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.425Z',
+  },
+  {
+    email: 'Rebecca9@hotmail.com',
+    password: 'D5prJdgfeae7qKs',
+    role: 'admin',
+    firstName: 'Kaley',
+    lastName: 'Kovacek',
+    speciality: 'Oncology',
+    licenseNumber: 'LIC202530295',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '99918 Aufderhar Cliff',
+      emergencyContact: {
+        name: 'Wellington',
+        phone: '685304859',
+        relationship: 'spouse',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 7,
+      preferredAppointmentDuration: 1,
+      breakTime: {
+        start: '2025-01-31T21:43:05.426Z',
+        end: '2025-01-31T21:43:05.426Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.426Z',
+  },
+  {
+    email: 'Katelynn_Shields41@gmail.com',
+    password: 'MEMaUfoh9JDcaLV',
+    role: 'receptionist',
+    firstName: 'Crawford',
+    lastName: 'Heathcote',
+    speciality: 'Infectious Disease',
+    licenseNumber: 'LIC202531716',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '138 Leanne Court',
+      emergencyContact: {
+        name: 'Antoinette',
+        phone: '685304859',
+        relationship: 'spouse',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 2,
+      preferredAppointmentDuration: 2,
+      breakTime: {
+        start: '2025-01-31T21:43:05.426Z',
+        end: '2025-01-31T21:43:05.426Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.426Z',
+  },
+  {
+    email: 'Obie67@yahoo.com',
+    password: 'i1MK8cEIxZLHzfn',
+    role: 'admin',
+    firstName: 'Johnpaul',
+    lastName: 'Crist',
+    speciality: 'Obstetrics and Gynecology',
+    licenseNumber: 'LIC202573073',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '67675 S 14th Street',
+      emergencyContact: {
+        name: 'Dee',
+        phone: '685304859',
+        relationship: 'parent',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 10,
+      preferredAppointmentDuration: 2,
+      breakTime: {
+        start: '2025-01-31T21:43:05.426Z',
+        end: '2025-01-31T21:43:05.426Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.426Z',
+  },
+  {
+    email: 'Davin20@yahoo.com',
+    password: 'bXrZ9v5zm_giHDC',
+    role: 'nurse',
+    firstName: 'Montana',
+    lastName: 'Dooley',
+    speciality: 'Pulmonology',
+    licenseNumber: 'LIC202561407',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '90813 Konopelski Trace',
+      emergencyContact: {
+        name: 'Carmel',
+        phone: '685304859',
+        relationship: 'parent',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 3,
+      preferredAppointmentDuration: 2,
+      breakTime: {
+        start: '2025-01-31T21:43:05.426Z',
+        end: '2025-01-31T21:43:05.426Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.426Z',
+  },
+  {
+    email: 'Hermina_Conn-Lubowitz89@gmail.com',
+    password: 'oGSkJ3cYs4mptNV',
+    role: 'doctor',
+    firstName: 'Jed',
+    lastName: 'Homenick',
+    speciality: 'Plastic Surgery',
+    licenseNumber: 'LIC202542637',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '2204 Weimann Hill',
+      emergencyContact: {
+        name: 'Sheila',
+        phone: '685304859',
+        relationship: 'friend',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 6,
+      preferredAppointmentDuration: 4,
+      breakTime: {
+        start: '2025-01-31T21:43:05.426Z',
+        end: '2025-01-31T21:43:05.426Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.426Z',
+  },
+  {
+    email: 'Roxanne22@gmail.com',
+    password: 'Yc0uv4ijOM3UCBY',
+    role: 'admin',
+    firstName: 'Thelma',
+    lastName: 'Dicki',
+    speciality: 'Emergency Medicine',
+    licenseNumber: 'LIC202572326',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '7889 Ashtyn Crossroad',
+      emergencyContact: {
+        name: 'Edwina',
+        phone: '685304859',
+        relationship: 'sibling',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 0,
+      preferredAppointmentDuration: 6,
+      breakTime: {
+        start: '2025-01-31T21:43:05.426Z',
+        end: '2025-01-31T21:43:05.426Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.426Z',
+  },
+  {
+    email: 'Kathryn_Boyle@hotmail.com',
+    password: 'kLOEUFjJZGdHeTJ',
+    role: 'nurse',
+    firstName: 'Izabella',
+    lastName: 'Gerhold',
+    speciality: 'Family Medicine',
+    licenseNumber: 'LIC202548044',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '7871 Holly Wells',
+      emergencyContact: {
+        name: 'Sheldon',
+        phone: '685304859',
+        relationship: 'sibling',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 10,
+      preferredAppointmentDuration: 1,
+      breakTime: {
+        start: '2025-01-31T21:43:05.426Z',
+        end: '2025-01-31T21:43:05.426Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.426Z',
+  },
+  {
+    email: 'Kaycee_Casper@hotmail.com',
+    password: 'kY_20jh6Y54v2wD',
+    role: 'nurse',
+    firstName: 'Toy',
+    lastName: 'Kuhic',
+    speciality: 'Family Medicine',
+    licenseNumber: 'LIC202590715',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '830 Botsford Ports',
+      emergencyContact: {
+        name: 'Dorcas',
+        phone: '685304859',
+        relationship: 'spouse',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 4,
+      preferredAppointmentDuration: 10,
+      breakTime: {
+        start: '2025-01-31T21:43:05.426Z',
+        end: '2025-01-31T21:43:05.426Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.426Z',
+  },
+  {
+    email: 'Soledad.Powlowski29@gmail.com',
+    password: '79QMcsP4bW0mhCU',
+    role: 'receptionist',
+    firstName: 'Dortha',
+    lastName: 'Littel',
+    speciality: 'Psychiatry',
+    licenseNumber: 'LIC202551153',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '87063 Larkin Club',
+      emergencyContact: {
+        name: 'Beau',
+        phone: '685304859',
+        relationship: 'spouse',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 7,
+      preferredAppointmentDuration: 7,
+      breakTime: {
+        start: '2025-01-31T21:43:05.426Z',
+        end: '2025-01-31T21:43:05.426Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.426Z',
+  },
+  {
+    email: 'Rasheed_Flatley@yahoo.com',
+    password: 'wuw3FRMCQjdlKVr',
+    role: 'receptionist',
+    firstName: 'Tatum',
+    lastName: 'McKenzie',
+    speciality: 'Anesthesiology',
+    licenseNumber: 'LIC202555140',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '26803 4th Street',
+      emergencyContact: {
+        name: 'Maybell',
+        phone: '685304859',
+        relationship: 'parent',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 0,
+      preferredAppointmentDuration: 7,
+      breakTime: {
+        start: '2025-01-31T21:43:05.426Z',
+        end: '2025-01-31T21:43:05.426Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.426Z',
+  },
+  {
+    email: 'Rex18@gmail.com',
+    password: 'UkqoOmSBAx4MExm',
+    role: 'admin',
+    firstName: 'Rod',
+    lastName: 'Deckow',
+    speciality: 'Rheumatology',
+    licenseNumber: 'LIC202549572',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '2783 Mireya Walks',
+      emergencyContact: {
+        name: 'Winnifred',
+        phone: '685304859',
+        relationship: 'parent',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 8,
+      preferredAppointmentDuration: 5,
+      breakTime: {
+        start: '2025-01-31T21:43:05.426Z',
+        end: '2025-01-31T21:43:05.426Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.426Z',
+  },
+  {
+    email: 'Merl.Shanahan19@gmail.com',
+    password: 'GtPq4UdONtuudvL',
+    role: 'receptionist',
+    firstName: 'Nicolette',
+    lastName: 'Gutmann',
+    speciality: 'Orthopedics',
+    licenseNumber: 'LIC202537443',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '8475 Treva Crossroad',
+      emergencyContact: {
+        name: 'Tobin',
+        phone: '685304859',
+        relationship: 'sibling',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 8,
+      preferredAppointmentDuration: 0,
+      breakTime: {
+        start: '2025-01-31T21:43:05.426Z',
+        end: '2025-01-31T21:43:05.426Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.426Z',
+  },
+  {
+    email: 'Kiley_Reynolds85@yahoo.com',
+    password: '_6bmiHKt0aNEtlk',
+    role: 'doctor',
+    firstName: 'Billy',
+    lastName: 'Rogahn',
+    speciality: 'Neurology',
+    licenseNumber: 'LIC202599312',
+    status: 'active',
+    contactInfo: {
+      phone: '685304859',
+      address: '741 Friesen Canyon',
+      emergencyContact: {
+        name: 'Geovanny',
+        phone: '685304859',
+        relationship: 'friend',
+      },
+    },
+    schedule: [
+      {
+        day: 'Monday',
+        startTime: '08:00',
+        endTime: '16:00',
+      },
+      {
+        day: 'Wednesday',
+        startTime: '10:00',
+        endTime: '14:00',
+      },
+    ],
+    education: {
+      institution: 'Universidad de Extramadura, Uex',
+      degree: 'Graduado en Física',
+      year: '2021',
+      country: 'Spain',
+    },
+    workingHours: {
+      maxPatientsPerDay: 0,
+      preferredAppointmentDuration: 9,
+      breakTime: {
+        start: '2025-01-31T21:43:05.426Z',
+        end: '2025-01-31T21:43:05.426Z',
+      },
+    },
+    notificationPreferences: {
+      email: true,
+      sms: false,
+      pushNotifications: false,
+    },
+    lastLogin: '2025-01-31T21:43:05.426Z',
+  },
+];
+const patients = [
+  {
+    documentId: generateIdUnique(DOC),
+    documentType: 'passport',
+    firstName: 'John',
+    lastName: 'Doe',
+    dateOfBirth: '1985-07-15',
+    gender: 'male',
+    contactInfo: {
+      phone: '555-123-4567',
+      email: 'john.doe@example.com',
+      address: {
+        street: '123 Main St',
+        city: 'Cityville',
+        state: 'NY',
+        zipCode: '10001',
+      },
+    },
+    emergencyContact: {
+      name: 'Jane Doe',
+      phone: '555-987-6543',
+      relationship: 'spouse',
+    },
+    insurance: {
+      provider: 'HealthCorp',
+      policyNumber: 'H12345678',
+      expirationDate: '2026-12-31',
+    },
+    medicalInfo: {
+      bloodType: 'O+',
+      allergies: ['Peanuts'],
+      chronicConditions: ['Hypertension'],
+      currentMedications: ['Lisinopril'],
+    },
+    status: 'active',
+  },
+  {
+    documentId: generateIdUnique(DOC),
+    documentType: 'driver_license',
+    firstName: 'Emma',
+    lastName: 'Smith',
+    dateOfBirth: '1990-05-20',
+    gender: 'female',
+    contactInfo: {
+      phone: '555-234-5678',
+      email: 'emma.smith@example.com',
+      address: {
+        street: '456 Elm St',
+        city: 'Townsville',
+        state: 'CA',
+        zipCode: '90210',
+      },
+    },
+    emergencyContact: {
+      name: 'Mark Smith',
+      phone: '555-876-5432',
+      relationship: 'brother',
+    },
+    insurance: {
+      provider: 'MediSafe',
+      policyNumber: 'M65432109',
+      expirationDate: '2025-06-30',
+    },
+    medicalInfo: {
+      bloodType: 'A-',
+      allergies: ['Penicillin'],
+      chronicConditions: [],
+      currentMedications: [],
+    },
+    status: 'active',
+  },
+  {
+    documentId: generateIdUnique(DOC),
+    documentType: 'passport',
+    firstName: 'Liam',
+    lastName: 'Brown',
+    dateOfBirth: '1975-03-10',
+    gender: 'male',
+    contactInfo: {
+      phone: '555-345-6789',
+      email: 'liam.brown@example.com',
+      address: {
+        street: '789 Pine St',
+        city: 'Metropolis',
+        state: 'TX',
+        zipCode: '75001',
+      },
+    },
+    emergencyContact: {
+      name: 'Sophia Brown',
+      phone: '555-765-4321',
+      relationship: 'daughter',
+    },
+    insurance: {
+      provider: 'HealthPlus',
+      policyNumber: 'P78901234',
+      expirationDate: '2024-11-15',
+    },
+    medicalInfo: {
+      bloodType: 'B+',
+      allergies: [],
+      chronicConditions: ['Diabetes'],
+      currentMedications: ['Metformin'],
+    },
+    status: 'active',
+  },
+  {
+    documentId: generateIdUnique(DOC),
+    documentType: 'ID_card',
+    firstName: 'Sophia',
+    lastName: 'Johnson',
+    dateOfBirth: '2000-01-25',
+    gender: 'female',
+    contactInfo: {
+      phone: '555-456-7890',
+      email: 'sophia.johnson@example.com',
+      address: {
+        street: '1010 Maple St',
+        city: 'Villagetown',
+        state: 'FL',
+        zipCode: '33101',
+      },
+    },
+    emergencyContact: {
+      name: 'Chris Johnson',
+      phone: '555-543-2109',
+      relationship: 'father',
+    },
+    insurance: {
+      provider: 'LifeCare',
+      policyNumber: 'L34567890',
+      expirationDate: '2025-09-01',
+    },
+    medicalInfo: {
+      bloodType: 'AB+',
+      allergies: ['Dust'],
+      chronicConditions: [],
+      currentMedications: [],
+    },
+    status: 'active',
+  },
+  {
+    documentId: generateIdUnique(DOC),
+    documentType: 'driver_license',
+    firstName: 'Olivia',
+    lastName: 'Williams',
+    dateOfBirth: '1995-11-30',
+    gender: 'female',
+    contactInfo: {
+      phone: '555-567-8901',
+      email: 'olivia.williams@example.com',
+      address: {
+        street: '2020 Birch St',
+        city: 'Springfield',
+        state: 'IL',
+        zipCode: '62701',
+      },
+    },
+    emergencyContact: {
+      name: 'Laura Williams',
+      phone: '555-321-6547',
+      relationship: 'mother',
+    },
+    insurance: {
+      provider: 'PrimeCare',
+      policyNumber: 'P90123456',
+      expirationDate: '2026-03-10',
+    },
+    medicalInfo: {
+      bloodType: 'O-',
+      allergies: [],
+      chronicConditions: ['Asthma'],
+      currentMedications: ['Inhaler'],
+    },
+    status: 'active',
+  },
+];
+
+async function seedUsers() {
+  if (process.env.NODE_ENV !== 'development') {
+    process.exit(1);
+  }
+
+  try {
+    await mongoose.connect(config.mongoUri);
+
+    const usersWithHashedPasswords = await Promise.all(
+      users.map(async (user) => ({
+        ...user,
+        password: await hashPassword(user.password),
+      })),
+    );
+    await User.insertMany(usersWithHashedPasswords);
+    await Patient.insertMany(patients);
+  } catch (error) {
+    console.error('Error seeding users:', error);
+  } finally {
+    await mongoose.connection.close();
+  }
+}
+
+seedUsers();

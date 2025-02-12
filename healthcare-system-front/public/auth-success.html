@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Veriel Health System - Autenticación Exitosa</title>
+    <script src="/auth-success.js" defer></script>
+    <style>
+      :root {
+        --turquoise: #1cd6c5;
+        --dark-bg: #111111;
+        --card-bg: #1a1a1a;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+      }
+
+      body {
+        background-color: var(--dark-bg);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+      }
+
+      .container {
+        background-color: var(--card-bg);
+        padding: 2rem;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
+        position: relative;
+      }
+
+      .logo {
+        margin-bottom: 1.5rem;
+      }
+
+      .logo h1 {
+        color: white;
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .logo p {
+        color: var(--turquoise);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .status-icon {
+        width: 60px;
+        height: 60px;
+        border: 2px solid var(--turquoise);
+        border-radius: 50%;
+        margin: 1.5rem auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .status-icon svg {
+        width: 30px;
+        height: 30px;
+        fill: var(--turquoise);
+      }
+
+      .message {
+        color: #9ca3af;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+      }
+
+      .version {
+        position: absolute;
+        bottom: -2rem;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #4b5563;
+        font-size: 0.8rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="logo">
+        <h1>Veriel Health System</h1>
+        <p>Sistema de diagnóstico avanzado</p>
+      </div>
+
+      <div class="status-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
+        </svg>
+      </div>
+
+      <p class="message">
+        Autenticación exitosa<br />
+        Esta ventana se cerrará automáticamente
+      </p>
+
+      <div class="version">SISTEMA DE ANÁLISIS • v0.0.1</div>
+    </div>
+  </body>
+</html>

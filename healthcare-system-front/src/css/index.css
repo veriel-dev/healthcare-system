@@ -1,0 +1,258 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 142.1 76.2% 36.3%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 142.1 76.2% 36.3%;
+    --radius: 0.5rem;
+    --chart-1: 142 88% 28%;
+    --chart-2: 139 65% 20%;
+    --chart-3: 140 74% 24%;
+    --chart-4: 137 55% 15%;
+    --chart-5: 141 40% 9%;
+  }
+
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 0 0% 95%;
+    --card: 24 9.8% 10%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 142.1 70.6% 45.3%;
+    --primary-foreground: 144.9 80.4% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 142.4 71.8% 29.2%;
+    --chart-1: 142 88% 28%;
+    --chart-2: 139 65% 20%;
+    --chart-3: 140 74% 24%;
+    --chart-4: 137 55% 15%;
+    --chart-5: 141 40% 9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #00ff9d #1f2937;
+}
+/* Webkit scrollbar */
+::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+/* Track (el fondo) */
+::-webkit-scrollbar-track {
+  background: #1f2937 !important;
+  border-radius: 4px !important;
+}
+
+/* Handle (la barra deslizante) */
+::-webkit-scrollbar-thumb {
+  background: #00ff9d !important;
+  border-radius: 4px !important;
+  border: 2px solid #1f2937 !important;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #00cc7d !important;
+}
+/* Corner */
+::-webkit-scrollbar-corner {
+  background: #1f2937 !important;
+}
+
+/* auth-layout */
+.auth-layout__container {
+  @apply min-h-screen bg-zinc-950 flex items-center justify-center relative overflow-hidden;
+}
+.auth-layout__content-wrapper {
+  @apply w-full max-w-7xl  h-auto relative flex gap-8 p-8;
+}
+.auth-layout__card {
+  @apply flex-1 bg-zinc-900/50 backdrop-blur-xl border-zinc-800/50 rounded-2xl p-8 relative;
+}
+.auth-layout__card-content {
+  @apply relative z-10 max-w-md mx-auto;
+}
+.auth-layout__header-section {
+  @apply text-center mb-12;
+}
+.auth-layout__logo-container {
+  @apply w-28 h-28 mx-auto mb-6 relative;
+}
+.auth-layout__logo-wrapper {
+  @apply relative w-full h-full flex items-center justify-center;
+}
+.auth-layout__logo {
+  @apply w-20 h-20 text-teal-500;
+}
+.auth-layout__title {
+  @apply text-4xl font-bold text-white mb-3;
+}
+.auth-layout__description-wrapper {
+  @apply flex items-center justify-center text-teal-500 space-x-2;
+}
+.auth-layout__description-icon {
+  @apply w-4 h-4;
+}
+.auth-layout__description-text {
+  @apply font-mono text-sm tracking-wider;
+}
+.auth-layout__footer {
+  @apply text-center;
+}
+.auth-layout__version-info {
+  @apply inline-flex items-center space-x-3 text-zinc-500 font-mono text-sm;
+}
+.auth-layout__status-dot {
+  @apply w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse;
+}
+/* scan-lines */
+.scan-lines__container {
+  @apply absolute inset-0;
+}
+.scan-lines__elements {
+  @apply absolute w-full h-px bg-teal-500/10;
+}
+/* Loading */
+.loading {
+  @apply fixed inset-0 flex gap-2 items-center justify-center bg-background/50;
+}
+.loading__spinner {
+  @apply w-6 h-6 animate-spin text-emerald-700;
+}
+.loading__text {
+  @apply text-sm font-medium text-emerald-700;
+}
+
+/* dashboard-layout */
+.dashboard-layout {
+  @apply min-h-screen bg-zinc-950 text-white;
+}
+.dashboard-layout__grid {
+  @apply grid grid-cols-1 lg:grid-cols-3 gap-6;
+}
+.dashboard-layout__sidebar {
+  @apply fixed left-0 top-0 h-full bg-zinc-900 border-r border-zinc-800;
+}
+.dashboard-layout__sidebar-title {
+  @apply text-xl font-semibold text-white;
+}
+.dashboard-layout__sidebar-sub-title {
+  @apply text-sm text-emerald-400;
+}
+:where(.dashboard-layout__sidebar-profile) {
+  @apply flex items-center justify-between px-6 py-3 text-emerald-400 border-r-4;
+}
+:where(.dashboard-layout__sidebar-profile-chevrondown) {
+  @apply w-4 h-4 transform transition-transform duration-300 cursor-pointer;
+}
+:where(.dashboard-layout__sidebar-profile-container-link) {
+  @apply overflow-hidden transition-all duration-300 ease-in-out;
+}
+:where(.dashboard-layout__sidebar-profile-link) {
+  @apply flex items-center px-8 py-2 text-gray-300 hover:text-emerald-400 hover:bg-zinc-800;
+}
+:where(.dashboard-layout__sidebar-settings) {
+  @apply flex items-center justify-between px-6 py-3 text-emerald-400 border-r-4;
+}
+.dashboard-layout__main {
+  @apply ml-64 p-8;
+}
+
+/* Profile */
+.profile {
+  @apply grid grid-cols-1 lg:grid-cols-3 gap-6;
+}
+/* card-layout */
+.card-layout {
+  @apply bg-zinc-100 border-zinc-200 dark:bg-zinc-900 dark:border-zinc-800 col-span-3 lg:col-span-1;
+}
+.card-layout__status {
+  @apply flex items-center justify-between mb-4;
+}
+.card-layout__status-title {
+  @apply text-xl font-bold text-emerald-500;
+}
+.card-layout__status-title-no {
+  @apply text-xl font-bold mb-4 text-emerald-500;
+}
+.card-layout__status-element {
+  @apply px-3 py-1 rounded-full;
+}
+:where(.card-layout__item) {
+  @apply flex items-center text-gray-400;
+}
+:where(.card-layout__icon) {
+  @apply h-5 w-5 mr-3;
+}
+
+/* search-bar */
+.search-bar {
+  @apply flex items-center gap-2;
+}
+.serch-bar__container {
+  @apply flex items-center gap-2 bg-background/95 p-1 rounded-md;
+}
+.serch-bar__icon {
+  @apply h-4 w-4 text-muted-foreground;
+}
+.serch-bar__input {
+  @apply h-8 w-[150px] lg:w-[250px] bg-transparent;
+}
+/* settings */
+
+.settings {
+  @apply flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0 p-8;
+}
+/* Animations Custom */
+@keyframes fillProgress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: var(--target-width);
+  }
+}
+
+.animate-fillProgress {
+  --target-width: 0%;
+  animation: fillProgress 2s ease-out forwards;
+}

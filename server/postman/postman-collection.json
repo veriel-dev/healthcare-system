@@ -1,0 +1,261 @@
+{
+  "info": {
+    "_postman_id": "c2e5e3d9-8b0f-4b9e-9b0e-8b0f4b9e9b0e",
+    "name": "Healthcare API",
+    "description": "API para el sistema de gestión del centro de salud",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"doctor@example.com\",\n    \"password\": \"123456\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"role\": \"doctor\",\n    \"contactInfo\": {\n        \"phone\": \"123456789\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            },
+            "description": "Registro de nuevos usuarios en el sistema"
+          }
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "if (jsonData.data && jsonData.data.token) {",
+                  "    pm.environment.set(\"token\", jsonData.data.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"doctor@example.com\",\n    \"password\": \"123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Inicio de sesión de usuarios"
+          }
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auth/me",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "me"]
+            },
+            "description": "Obtener información del usuario actual"
+          }
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"currentPassword\": \"123456\",\n    \"newPassword\": \"newpassword123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/change-password",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "change-password"]
+            },
+            "description": "Cambiar contraseña del usuario"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            },
+            "description": "Obtener lista de todos los usuarios"
+          }
+        },
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}"]
+            },
+            "description": "Obtener usuario por ID"
+          }
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"nurse@example.com\",\n    \"password\": \"123456\",\n    \"firstName\": \"Jane\",\n    \"lastName\": \"Smith\",\n    \"role\": \"nurse\",\n    \"contactInfo\": {\n        \"phone\": \"987654321\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            },
+            "description": "Crear nuevo usuario"
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"firstName\": \"Jane Updated\",\n    \"lastName\": \"Smith Updated\",\n    \"contactInfo\": {\n        \"phone\": \"999888777\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}"]
+            },
+            "description": "Actualizar usuario existente"
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}"]
+            },
+            "description": "Eliminar usuario"
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000/api",
+      "type": "string"
+    }
+  ]
+}

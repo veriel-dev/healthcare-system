@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 444 444">
+  <!-- Fondo negro puro -->
+  <rect x="0" y="0" width="444" height="444" rx="3" fill="#000000"/>
+
+  <!-- Borde exterior brillante -->
+  <rect x="4" y="4" width="436" height="436" rx="3" fill="none" stroke="#00ffbb" stroke-width="40"/>
+
+
+  <!-- Efecto de resplandor base -->
+  <path d="M 8 222
+    H 120
+    L 160 240
+    L 180 120
+    L 222 360
+    L 260 160
+    L 300 320
+    L 320 240
+    L 360 240
+    H 436" stroke="#00ffcc" stroke-width="50" fill="none" stroke-linecap="round" stroke-linejoin="round" filter="blur(8px)" stroke-opacity="0.6">
+  </path>
+
+  <!-- Línea principal ultra definida -->
+  <path d="M 8 222
+    H 120
+    L 160 240
+    L 180 120
+    L 222 360
+    L 260 160
+    L 300 320
+    L 320 240
+    L 360 240
+    H 436" stroke="#00ffcc" stroke-width="20" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  </path>
+
+  <!-- Capa de brillo adicional -->
+  <path d="M 8 222
+    H 120
+    L 160 240
+    L 180 120
+    L 222 360
+    L 260 160
+    L 300 320
+    L 320 240
+    L 360 240
+    H 436" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.9">
+  </path>
+</svg>
