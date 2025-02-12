@@ -119,6 +119,7 @@ export const RouterComponent = () => {
     <Router>
       <Routes>
         {renderRoutes(routesConfig)}
+        <Route path="/" element={<Navigate to={config.auth.front.login} replace />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
